@@ -37,6 +37,24 @@ additionalDataがdataやprependDataだとエラーになる
 
 ```
 
+# wijimoのインストール
+
+`npm install @grapecity/wijmo.vue2.all`
+
+
+# Component name 'student' should always be multi word Vue / multi word component names
+参考: https://qdmana.com/2022/02/202202191612527048.html
+
+`lintOnSave:false,`を`frontend/vue.config.js`に追記
+```
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  lintOnSave:false,
+  css: {
+```
+
+
 ## Project setup
 ```
 npm install
