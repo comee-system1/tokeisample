@@ -176,6 +176,13 @@ export default {
     addTile: function(id) {
 			this.tiles = [{ id: this.tilesCount++, type: id }, ...this.tiles];
 		},
+    removeTitle: function(tileId) {
+      const tileIndex = this.tiles.findIndex(t => t.id === tileId);
+      this.tiles.splice(tileIndex, 1);
+    },
+    toggleMenu: function() {
+      this.isWideMenu = !this.isWideMenu;
+    },
 		dragStart: function(e, tileId) {
 			const info = {
 				sourceTileId: tileId,
@@ -184,6 +191,42 @@ export default {
 			e.dataTransfer.effectAllowed = 'move';
 			const tile = wjcCore.closest(e.target, '.tile');
 			wjcCore.addClass(tile, 'drag-source');
+		},
+    dragOver: function(e) {
+      const tile = wjcCore.closest(e.target, '.tile');
+      const dragTarget = document.querySelector('.tile.drag-over');
+      if (tile !== dragTarget) {
+        wjcCore.removeClass(dragTarget, 'drag-over');
+      }
+      const dragSource = document.querySelector('.tile.drag-source');
+      if (dragSource && tile !== dragSource) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        wjcCore.addClass(tile, 'drag-over');
+      }
+    },
+		dragFinish: function(e, tileId) {
+			const dragSource = document.querySelector('.tile.drag-source');
+			const dragTarget = document.querySelector('.tile.drag-over');
+			if (dragSource && dragTarget) {
+				e.preventDefault();
+				const data = e.dataTransfer.getData('text');
+				const info = JSON.parse(data);
+				const sourceIndex = this.tiles.findIndex(t => t.id === info.sourceTileId);
+				const sourceTile = this.tiles[sourceIndex];
+				const targetIndex = this.tiles.findIndex(t => t.id === tileId);
+				const targetTile = this.tiles[targetIndex];
+				this.tiles.splice(sourceIndex, 1, targetTile);
+				this.tiles.splice(targetIndex, 1, sourceTile);
+				// invalidate Wijmo controls after layout updates
+				wjcCore.Control.invalidateAll();
+			}
+		},
+		dragEnd: function() {
+			const dragSource = document.querySelector('.tile.drag-source');
+			wjcCore.removeClass(dragSource, 'drag-source');
+			const dragTarget = document.querySelector('.tile.drag-over');
+			wjcCore.removeClass(dragTarget, 'drag-over');
 		},
 		toggleMenu: function() {
 			this.isWideMenu = !this.isWideMenu;
