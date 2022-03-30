@@ -11,12 +11,7 @@
 
 <script>
 
-import "@grapecity/wijmo.styles/wijmo.css";
-import '@grapecity/wijmo.vue2.grid';
-import '@grapecity/wijmo.vue2.grid.filter';
-import * as wjCore from "@grapecity/wijmo";
 import { getData } from "../services/data.custom";
-import * as gridFilter from '@grapecity/wijmo.grid.filter';
 
 export default {
   data: function() {
