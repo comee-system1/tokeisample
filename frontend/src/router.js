@@ -6,6 +6,7 @@ import HttpRequest from './components/HttpRequest.vue'
 import Custom from './components/CustomTable.vue'
 import TemplateString from './components/TemplateString.vue'
 import CultureString from './components/CultureString.vue'
+import Anime from './components/AnimeTable.vue'
 
 Vue.use(Router)
 
@@ -18,5 +19,6 @@ export default new Router({
     { path: '/custom', name:Custom, component: Custom},
     { path: '/templatestring', name:TemplateString, component: TemplateString},
     { path: '/culturestring', name:CultureString, component: CultureString},
+    { path: '/anime', name:Anime, component: Anime},
   ]
 })
