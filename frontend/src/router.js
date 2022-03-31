@@ -7,6 +7,7 @@ import Custom from './components/CustomTable.vue'
 import TemplateString from './components/TemplateString.vue'
 import CultureString from './components/CultureString.vue'
 import Anime from './components/AnimeTable.vue'
+import Menu from './components/MenuTable.vue'
 import ReturnInput from './components/ReturnInput.vue'
 
 Vue.use(Router)
@@ -22,5 +23,6 @@ export default new Router({
     { path: '/culturestring', name:CultureString, component: CultureString},
     { path: '/anime', name:Anime, component: Anime},
     { path: '/return', name:ReturnInput, component: ReturnInput},
+    { path: '/menu', name:Menu, component: Menu},
   ]
 })
